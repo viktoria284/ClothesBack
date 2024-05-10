@@ -1,33 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\",
+  "WorkspaceRootPath": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|c:\\users\\vikac\\source\\repos\\veblaba\\clothes_back\\controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|solutionrelative:controllers\\productscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|solutionrelative:models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|solutionrelative:models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|c:\\users\\vikac\\source\\repos\\veb\\clothesback\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\models\\productwithimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\models\\productwithimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|solutionrelative:models\\productwithimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\models\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\models\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|solutionrelative:models\\image.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3675CA97-AC17-486C-A447-594ADD1CE80D}|ClothesBack.csproj|solutionrelative:controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -60,35 +60,33 @@
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Program.cs",
+              "ToolTip": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-10T10:20:26.338Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-10T10:20:26.338Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Models\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\AppDbContext.cs",
               "RelativeToolTip": "Models\\AppDbContext.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-08T14:43:48.228Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-08T14:43:48.228Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "ProductsController.cs",
-              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Controllers\\ProductsController.cs",
+              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Controllers\\ProductsController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProductsController.cs",
-              "ToolTip": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Controllers\\ProductsController.cs",
+              "ToolTip": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Controllers\\ProductsController.cs",
               "RelativeToolTip": "Controllers\\ProductsController.cs",
               "ViewState": "AQIAADsAAAAAAAAAAAAgwD8AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -99,22 +97,21 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\Product.cs",
+              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\Product.cs",
               "RelativeDocumentMoniker": "Models\\Product.cs",
-              "ToolTip": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\Product.cs",
+              "ToolTip": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\Product.cs",
               "RelativeToolTip": "Models\\Product.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-08T06:49:41.859Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-08T06:49:41.859Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "ProductWithImage.cs",
-              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\ProductWithImage.cs",
+              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\ProductWithImage.cs",
               "RelativeDocumentMoniker": "Models\\ProductWithImage.cs",
-              "ToolTip": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\ProductWithImage.cs",
+              "ToolTip": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\ProductWithImage.cs",
               "RelativeToolTip": "Models\\ProductWithImage.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -124,9 +121,9 @@
               "$type": "Document",
               "DocumentIndex": 5,
               "Title": "Image.cs",
-              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\Image.cs",
+              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\Image.cs",
               "RelativeDocumentMoniker": "Models\\Image.cs",
-              "ToolTip": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Models\\Image.cs",
+              "ToolTip": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Models\\Image.cs",
               "RelativeToolTip": "Models\\Image.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -136,9 +133,9 @@
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Controllers\\UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Controllers\\UsersController.cs",
               "RelativeDocumentMoniker": "Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\Controllers\\UsersController.cs",
               "RelativeToolTip": "Controllers\\UsersController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
