@@ -9,10 +9,10 @@ namespace ClothesBack.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Image> Images { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public AppDbContext() { }
@@ -24,6 +24,12 @@ namespace ClothesBack.Models
                 new User(1, "kostya748", "kostya123"),
                 new User(2, "veraVolskaya", "vera123")
             );
+
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Image) // Один продукт имеет одну картинку
+                .WithOne(i => i.Product) // Одна картинка привязана к одному продукту
+                .HasForeignKey<Image>(i => i.ProductId); // Внешний ключ в таблице Images
+            
 
             modelBuilder.Entity<Product>().HasData(
                 new Product(1, "Balance V3 Seamless Shorts", "Shorts", "Dominate your workout with Balance V3 Seamless Shorts. Crafted with improved softness and stretch, they offer a premium buttery handfeel and a comfortable compressive fit.", 3500),

@@ -21,6 +21,29 @@ namespace ClothesBack.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("ClothesBack.Models.Image", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ImageId"));
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("ClothesBack.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -100,6 +123,22 @@ namespace ClothesBack.Migrations
                             Login = "veraVolskaya",
                             Password = "vera123"
                         });
+                });
+
+            modelBuilder.Entity("ClothesBack.Models.Image", b =>
+                {
+                    b.HasOne("ClothesBack.Models.Product", "Product")
+                        .WithOne("Image")
+                        .HasForeignKey("ClothesBack.Models.Image", "ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ClothesBack.Models.Product", b =>
+                {
+                    b.Navigation("Image");
                 });
 #pragma warning restore 612, 618
         }

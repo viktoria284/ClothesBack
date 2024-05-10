@@ -20,11 +20,64 @@ namespace ClothesBack.Controllers
             _context = context;
         }
 
+
+        [HttpPost("uploadImage")]
+        public async Task<IActionResult> UploadImage(int imageId, int productId, IFormFile imageFile)
+        {
+            if (imageFile == null || imageFile.Length == 0)
+            {
+                return BadRequest("No image provided");
+            }
+
+            // Считываем данные из файла в массив байтов
+            byte[] imageData;
+            using (var memoryStream = new MemoryStream())
+            {
+                await imageFile.CopyToAsync(memoryStream);
+                imageData = memoryStream.ToArray();
+            }
+
+            // Создаем объект Image и сохраняем его в базу данных
+            var image = new Image (imageId, productId, imageData);
+            _context.Images.Add(image);
+            await _context.SaveChangesAsync();
+
+            return Ok("Image uploaded successfully");
+
+            /*var image = new Image(imageId, productId, imageData);
+            _context.Images.Add(image);
+            await _context.SaveChangesAsync();
+            return image;*/
+        }
+
+
         // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
+        }
+
+        // GET: api/Products/wImages
+        [HttpGet("wImages")]
+        public async Task<ActionResult<IEnumerable<ProductWithImage>>> GetProductsWithImages()
+        {
+            var productsWithImages = await _context.Products
+        .Join(
+            _context.Images,
+            product => product.ProductId,
+            image => image.ProductId,
+            (product, image) => new ProductWithImage
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                Description = product.Description,
+                ImageData = image.Data
+            }
+        )
+        .ToListAsync();
+
+            return productsWithImages;
         }
 
         // GET: api/Products/5

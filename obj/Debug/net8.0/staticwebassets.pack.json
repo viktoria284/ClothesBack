@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\wwwroot\\images\\crop top.webp",
+      "PackagePath": "staticwebassets\\images\\crop top.webp"
+    },
+    {
+      "Id": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\wwwroot\\images\\hoodie.webp",
+      "PackagePath": "staticwebassets\\images\\hoodie.webp"
+    },
+    {
+      "Id": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\wwwroot\\images\\jacket.webp",
+      "PackagePath": "staticwebassets\\images\\jacket.webp"
+    },
+    {
+      "Id": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\wwwroot\\images\\shorts.webp",
+      "PackagePath": "staticwebassets\\images\\shorts.webp"
+    },
+    {
+      "Id": "C:\\Users\\vikac\\source\\repos\\veb\\ClothesBack\\wwwroot\\images\\t-shirt.jpg",
+      "PackagePath": "staticwebassets\\images\\t-shirt.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ClothesBack.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ClothesBack.props",
+      "PackagePath": "build\\ClothesBack.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ClothesBack.props",
+      "PackagePath": "buildMultiTargeting\\ClothesBack.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ClothesBack.props",
+      "PackagePath": "buildTransitive\\ClothesBack.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
