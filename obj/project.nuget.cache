@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E94oGl/vFtZ+c4LiROwC5MnDvSwH7YOuwsGcOUnrLrAcgJzJ2qpwi+t8MrVoiKgahSiTtgVj0pyuOOb8pOmB1Q==",
+  "dgSpecHash": "CkW94Sn1/2jRb9CvlXyC44g7Z4WyQuCAmPnIaCakZgOD8TyHHUHsi+vqyVtR0CKqVvNyHe3ufyphxBa8p85zqQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vikac\\source\\repos\\vebLaba\\clothes_back\\ClothesBack.csproj",
+  "projectFilePath": "C:\\Users\\vikac\\source\\repos\\veb\\clothes_back\\ClothesBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vikac\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\vikac\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
