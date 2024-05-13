@@ -17,6 +17,7 @@
         public string Description { get; set; }
         public int Price {  get; set; }
 
-        public Image? Image { get; set; } // Навигационное свойство
+        //public Image? Image { get; set; } // Навигационное свойство
+        public ICollection<Image> Images { get; set; } = new List<Image>();
     }
 }
