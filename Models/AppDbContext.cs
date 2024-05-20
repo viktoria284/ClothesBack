@@ -9,9 +9,10 @@ namespace ClothesBack.Models
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
-        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<ProductVariant> ProductVariants { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -22,6 +23,26 @@ namespace ClothesBack.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ci => ci.Product)
+                .WithMany()
+                .HasForeignKey(ci => ci.ProductId);
+
+            modelBuilder.Entity<CartItem>()
+                .HasOne(ci => ci.ProductVariant)
+                .WithMany()
+                .HasForeignKey(ci => ci.ProductVariantId);
+
+            modelBuilder.Entity<ProductVariant>()
+                .HasOne(pv => pv.Product)
+                .WithMany(p => p.ProductVariants)
+                .HasForeignKey(pv => pv.ProductIdd);
 
             modelBuilder.Entity<Product>()
                 .HasMany(p => p.Images) // Один продукт имеет одну картинку

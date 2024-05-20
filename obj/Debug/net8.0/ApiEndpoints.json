@@ -32,9 +32,98 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ClothesBack.Controllers.CartController",
+    "Method": "PostCartItem",
+    "RelativePath": "api/cart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartItem",
+        "Type": "ClothesBack.Models.CartItem",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClothesBack.Models.CartItem",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClothesBack.Controllers.CartController",
+    "Method": "UpdateCartItem",
+    "RelativePath": "api/cart/{cartItemId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartItemId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "cartItem",
+        "Type": "ClothesBack.Models.CartItem",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClothesBack.Controllers.CartController",
+    "Method": "DeleteCartItem",
+    "RelativePath": "api/cart/{cartItemId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cartItemId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClothesBack.Controllers.CartController",
+    "Method": "GetCartItems",
+    "RelativePath": "api/cart/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ClothesBack.Models.CartItem, ClothesBack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "GetProducts",
-    "RelativePath": "api/Products",
+    "RelativePath": "api/products",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -54,7 +143,7 @@
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "PostProduct",
-    "RelativePath": "api/Products",
+    "RelativePath": "api/products",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -80,7 +169,7 @@
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "GetProduct",
-    "RelativePath": "api/Products/{id}",
+    "RelativePath": "api/products/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -93,7 +182,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "ClothesBack.Models.Product",
+        "Type": "ClothesBack.Dtos.ProductDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -106,7 +195,7 @@
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "PutProduct",
-    "RelativePath": "api/Products/{id}",
+    "RelativePath": "api/products/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -127,7 +216,7 @@
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "DeleteProduct",
-    "RelativePath": "api/Products/{id}",
+    "RelativePath": "api/products/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -143,7 +232,7 @@
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "UploadImage",
-    "RelativePath": "api/Products/uploadImage",
+    "RelativePath": "api/products/uploadImage",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -169,7 +258,7 @@
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "GetProductsWithImages",
-    "RelativePath": "api/Products/wImages",
+    "RelativePath": "api/products/wImages",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

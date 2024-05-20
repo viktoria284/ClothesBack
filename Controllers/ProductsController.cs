@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ClothesBack.Models;
 using Microsoft.AspNetCore.Authorization;
+using ClothesBack.Dtos;
 
 namespace ClothesBack.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/products")]
     [ApiController]
     public class ProductsController : ControllerBase
     {
@@ -19,6 +20,36 @@ namespace ClothesBack.Controllers
         public ProductsController(AppDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductDto>> GetProduct(int id)
+        {
+            var product = await _context.Products
+                .Include(p => p.ProductVariants)
+                .Include(p => p.Images)
+                .FirstOrDefaultAsync(p => p.ProductId == id);
+
+            if (product == null)
+                return NotFound();
+
+            var productDto = new ProductDto
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                Description = product.Description,
+                Price = product.Price,
+                Images = product.Images.Select(i => i.Data).ToList(),
+                Variants = product.ProductVariants.Select(v => new ProductVariantDto
+                {
+                    ProductVariantId = v.ProductVariantId,
+                    Color = v.Color,
+                    Size = v.Size,
+                    StockQuantity = v.StockQuantity
+                }).ToList()
+            };
+
+            return Ok(productDto);
         }
 
 
@@ -54,7 +85,6 @@ namespace ClothesBack.Controllers
 
         // GET: api/Products
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
@@ -83,7 +113,7 @@ namespace ClothesBack.Controllers
         }
 
         // GET: api/Products/5
-        [HttpGet("{id}")]
+        /*[HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);
@@ -94,12 +124,11 @@ namespace ClothesBack.Controllers
             }
 
             return product;
-        }
+        }*/
 
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
             if (id != product.ProductId)
@@ -131,7 +160,6 @@ namespace ClothesBack.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
             _context.Products.Add(product);
@@ -142,7 +170,6 @@ namespace ClothesBack.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             var product = await _context.Products.FindAsync(id);

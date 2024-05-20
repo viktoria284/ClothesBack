@@ -30,6 +30,18 @@ namespace ClothesBack.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
+                var userByUsername = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == registerDto.Username);
+                if (userByUsername != null)
+                {
+                    return BadRequest("Username is already taken");
+                }
+
+                var userByEmail = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == registerDto.Email);
+                if (userByEmail != null)
+                {
+                    return BadRequest("Email is already taken");
+                }
+
                 var appUser = new AppUser
                 {
                     UserName = registerDto.Username,
