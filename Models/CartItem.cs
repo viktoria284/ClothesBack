@@ -13,12 +13,6 @@ namespace ClothesBack.Models
         [ForeignKey("UserId")]
         public AppUser User { get; set; }
 
-
-        [Required]
-        public int ProductId { get; set; }
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }
-
         [Required]
         public Guid ProductVariantId { get; set; }
         [ForeignKey("ProductVariantId")]

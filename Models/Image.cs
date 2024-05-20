@@ -1,18 +1,20 @@
-﻿namespace ClothesBack.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ClothesBack.Models
 {
     public class Image
     {
-        public Image(int imageId, int productId, byte[] data)
-        {
-            ImageId = imageId;
-            ProductId = productId;
-            Data = data;
-        }
+        [Key]
+        public Guid ImageId {  get; set; }
 
-        public int ImageId {  get; set; }
-        public int ProductId { get; set; } // Внешний ключ
+        [Required]
+        public Guid ProductId { get; set; }
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; }
+
         public byte[] Data { get; set; }
 
-        public Product Product { get; set; } // Навигационное свойство
+        public bool IsMain { get; set; }
     }
 }

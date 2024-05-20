@@ -3,7 +3,6 @@
     public class CartItemDto
     {
         public Guid CartItemId { get; set; }
-        public int ProductId { get; set; }
         public Guid ProductVariantId { get; set; }
         public string Size { get; set; }
         public string Color { get; set; }

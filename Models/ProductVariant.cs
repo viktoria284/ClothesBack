@@ -10,14 +10,10 @@ namespace ClothesBack.Models
         public Guid ProductVariantId { get; set; }
 
         [Required]
-        public int ProductIdd { get; set; }
+        public Guid ProductId { get; set; }
 
-        [ForeignKey("ProductIdd")]
+        [ForeignKey("ProductId")]
         public Product Product { get; set; }
-
-        [Required]
-        [StringLength(50)]
-        public string Color { get; set; }
 
         [Required]
         [StringLength(10)]

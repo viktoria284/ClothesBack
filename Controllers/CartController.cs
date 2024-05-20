@@ -31,10 +31,8 @@ namespace ClothesBack.Controllers
                 .Select(c => new CartItemDto
                 {
                     CartItemId = c.CartItemId,
-                    ProductId = c.ProductId,
                     ProductVariantId = c.ProductVariantId,
                     Size = c.ProductVariant.Size,
-                    Color = c.ProductVariant.Color,
                     Quantity = c.Quantity,
                     Price = c.Price
                 })

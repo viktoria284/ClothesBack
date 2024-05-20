@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClothesBack.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240519202632_ProductVariantAndCart")]
-    partial class ProductVariantAndCart
+    [Migration("20240520172455_AddIsMainToImage")]
+    partial class AddIsMainToImage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,9 +98,6 @@ namespace ClothesBack.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
                     b.Property<Guid>("ProductVariantId")
                         .HasColumnType("uuid");
 
@@ -113,8 +110,6 @@ namespace ClothesBack.Migrations
 
                     b.HasKey("CartItemId");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("ProductVariantId");
 
                     b.HasIndex("UserId");
@@ -124,18 +119,19 @@ namespace ClothesBack.Migrations
 
             modelBuilder.Entity("ClothesBack.Models.Image", b =>
                 {
-                    b.Property<int>("ImageId")
+                    b.Property<Guid>("ImageId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ImageId"));
+                        .HasColumnType("uuid");
 
                     b.Property<byte[]>("Data")
                         .IsRequired()
                         .HasColumnType("bytea");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("ImageId");
 
@@ -146,26 +142,31 @@ namespace ClothesBack.Migrations
 
             modelBuilder.Entity("ClothesBack.Models.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ProductId"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("integer");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
 
                     b.HasKey("ProductId");
 
@@ -174,51 +175,75 @@ namespace ClothesBack.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = 1,
-                            Category = "Shorts",
-                            Description = "Dominate your workout with Balance V3 Seamless Shorts. Crafted with improved softness and stretch, they offer a premium buttery handfeel and a comfortable compressive fit.",
-                            Price = 3500,
-                            ProductName = "Balance V3 Seamless Shorts"
-                        },
-                        new
-                        {
-                            ProductId = 2,
-                            Category = "Jackets",
-                            Description = "Crafted with enhanced softness and stretch for premium comfort, it offers a new luxurious buttery handfeel. ",
-                            Price = 4500,
-                            ProductName = "Balance V3 Seamless Zip Jacket"
-                        },
-                        new
-                        {
-                            ProductId = 3,
-                            Category = "Tops",
-                            Description = "Re-designed with enhanced softness for a luxurious handfeel and new improved stretch for better comfort, it ensures optimal performance. ",
-                            Price = 3000,
-                            ProductName = "Balance V3 Seamless Crop Top"
-                        },
-                        new
-                        {
-                            ProductId = 4,
-                            Category = "Leggings",
-                            Description = "With an increased fabric weight, these leggings ensure a squat-proof finish, empowering you during your workouts. The refined waistband depth provides a true mid-high waist fit, offering essential support.",
-                            Price = 4800,
-                            ProductName = "Balance V3 Seamless Leggings"
-                        },
-                        new
-                        {
-                            ProductId = 5,
+                            ProductId = new Guid("7a428abe-ba5f-41e1-977b-f393f7fbb972"),
                             Category = "T-Shirts",
+                            Color = "Black",
                             Description = "Premium heavyweight fabric for comfort that hits different. Physical Education graphic to chest",
-                            Price = 3000,
+                            Price = 30.00m,
                             ProductName = "Phys Ed Graphic T-Shirt"
                         },
                         new
                         {
-                            ProductId = 6,
+                            ProductId = new Guid("46583626-8f65-4971-b38e-335810ef1b1b"),
                             Category = "Hoodies",
+                            Color = "Black",
                             Description = "From rest day relaxing to brunch with the girls, elevate your off-duty vibe in the Phys Ed collection.",
-                            Price = 8200,
+                            Price = 82.00m,
                             ProductName = "Phys Ed Hoodie"
+                        },
+                        new
+                        {
+                            ProductId = new Guid("7db24951-6a5c-41a0-b092-a50fdf5ecaab"),
+                            Category = "Sweatshirts",
+                            Color = "Black",
+                            Description = "Soft, brushed back fabric inside for warmth and comfort. Ribbed hem and cuffs for a clean fit. Oversized fit",
+                            Price = 50.00m,
+                            ProductName = "Training Oversized Fleece Sweatshirt"
+                        },
+                        new
+                        {
+                            ProductId = new Guid("7adcd6fd-d493-4bac-af00-3ab2da8c461e"),
+                            Category = "Jackets",
+                            Color = "Black",
+                            Description = "Crafted with enhanced softness and stretch for premium comfort, it offers a new luxurious buttery handfeel.",
+                            Price = 45.00m,
+                            ProductName = "Balance V3 Seamless Zip Jacket"
+                        },
+                        new
+                        {
+                            ProductId = new Guid("e4f94420-b902-456e-b5d4-081c8b1df381"),
+                            Category = "Tops",
+                            Color = "Black",
+                            Description = "Re-designed with enhanced softness for a luxurious handfeel and new improved stretch for better comfort, it ensures optimal performance.",
+                            Price = 30.00m,
+                            ProductName = "Balance V3 Seamless Crop Top"
+                        },
+                        new
+                        {
+                            ProductId = new Guid("41da3058-684b-4db0-b864-acc036b8deb3"),
+                            Category = "Shorts",
+                            Color = "Black",
+                            Description = "Dominate your workout with Balance V3 Seamless Shorts. Crafted with improved softness and stretch, they offer a premium buttery handfeel and a comfortable compressive fit.",
+                            Price = 35.00m,
+                            ProductName = "Balance V3 Seamless Shorts"
+                        },
+                        new
+                        {
+                            ProductId = new Guid("dbc41831-29d1-42ac-b762-6fef2e636707"),
+                            Category = "Leggings",
+                            Color = "Black",
+                            Description = "With an increased fabric weight, these leggings ensure a squat-proof finish, empowering you during your workouts. The refined waistband depth provides a true mid-high waist fit, offering essential support.",
+                            Price = 48.00m,
+                            ProductName = "Balance V3 Seamless Leggings"
+                        },
+                        new
+                        {
+                            ProductId = new Guid("52fb0083-a547-4259-ba6b-3bcd7108f4b6"),
+                            Category = "Socks",
+                            Color = "Black",
+                            Description = "Lifters don't live by Mondays and Tuesdays. We live by Chest Days and Leg Days. Back Days and Rest Days. And these socks know what's up",
+                            Price = 40.00m,
+                            ProductName = "GFX Crew Socks 7PK"
                         });
                 });
 
@@ -228,16 +253,11 @@ namespace ClothesBack.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
                     b.Property<DateTime>("ModifiedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ProductIdd")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Size")
                         .IsRequired()
@@ -249,7 +269,7 @@ namespace ClothesBack.Migrations
 
                     b.HasKey("ProductVariantId");
 
-                    b.HasIndex("ProductIdd");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductVariants");
                 });
@@ -278,20 +298,6 @@ namespace ClothesBack.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "943ddc56-3cbd-4c74-aefe-bc671b190ab5",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "dc4f5040-5b04-4c63-897b-c5bb6df7eb65",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -402,12 +408,6 @@ namespace ClothesBack.Migrations
 
             modelBuilder.Entity("ClothesBack.Models.CartItem", b =>
                 {
-                    b.HasOne("ClothesBack.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ClothesBack.Models.ProductVariant", "ProductVariant")
                         .WithMany()
                         .HasForeignKey("ProductVariantId")
@@ -419,8 +419,6 @@ namespace ClothesBack.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
 
                     b.Navigation("ProductVariant");
 
@@ -442,7 +440,7 @@ namespace ClothesBack.Migrations
                 {
                     b.HasOne("ClothesBack.Models.Product", "Product")
                         .WithMany("ProductVariants")
-                        .HasForeignKey("ProductIdd")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

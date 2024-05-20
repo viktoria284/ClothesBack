@@ -22,46 +22,109 @@ namespace ClothesBack.Controllers
             _context = context;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProductDto>> GetProduct(int id)
+        [HttpGet("{productId}")]
+        public async Task<ActionResult<ProductVariantDto>> GetProduct(Guid productId)
         {
             var product = await _context.Products
-                .Include(p => p.ProductVariants)
                 .Include(p => p.Images)
-                .FirstOrDefaultAsync(p => p.ProductId == id);
+                .Include(p => p.ProductVariants)
+                .FirstOrDefaultAsync(p => p.ProductId == productId);
 
             if (product == null)
                 return NotFound();
 
-            var productDto = new ProductDto
+            var variantDto = new ProductVariantDto
             {
                 ProductId = product.ProductId,
                 ProductName = product.ProductName,
                 Description = product.Description,
+                Color = product.Color,
                 Price = product.Price,
                 Images = product.Images.Select(i => i.Data).ToList(),
-                Variants = product.ProductVariants.Select(v => new ProductVariantDto
+                Variants = product.ProductVariants.Select(v => new ProductVariantInfo
                 {
                     ProductVariantId = v.ProductVariantId,
-                    Color = v.Color,
                     Size = v.Size,
                     StockQuantity = v.StockQuantity
                 }).ToList()
             };
 
-            return Ok(productDto);
+            return Ok(variantDto);
         }
 
 
+        // GET: api/Products/wImage
+        [HttpGet("wImage")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsWithImage()
+        {
+            /*var productsWithImage = await _context.Products
+                .Include(p => p.Images)
+                .OrderBy(p => p.ProductName == "Phys Ed Graphic T-Shirt" ? 1 :
+                   p.ProductName == "Phys Ed Hoodie" ? 2 :
+                   p.ProductName == "Training Oversized Fleece Sweatshirt" ? 3 :
+                   p.ProductName == "Balance V3 Seamless Zip Jacket" ? 4 :
+                   p.ProductName == "Balance V3 Seamless Crop Top" ? 5 :
+                   p.ProductName == "Balance V3 Seamless Shorts" ? 6 :
+                   p.ProductName == "Balance V3 Seamless Leggings" ? 7 :
+                   p.ProductName == "GFX Crew Socks 7PK" ? 8 :
+                   9)
+                .Select(product => new ProductDto
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    Description = product.Description,
+                    Color = product.Color,
+                    Price = product.Price,
+                    //Images = product.Images.Select(i => i.Data).ToList(),
+                    //Image = GetMainImageData(product)
+                    Image = product.Images.FirstOrDefault(img => img.IsMain)?.Data
+                })
+                .ToListAsync();*/
+
+            var productsWithImage = await _context.Products
+               .Join(
+                   _context.Images.Where(image => image.IsMain),
+                   product => product.ProductId,
+                   image => image.ProductId,
+                   (product, image) => new ProductDto
+                   {
+                       ProductId = product.ProductId,
+                       ProductName = product.ProductName,
+                       Description = product.Description,
+                       Color = product.Color,
+                       Price = product.Price,
+                       Image = image.Data
+                   }
+               )
+               .OrderBy(p => p.ProductName == "Phys Ed Graphic T-Shirt" ? 1 :
+                   p.ProductName == "Phys Ed Hoodie" ? 2 :
+                   p.ProductName == "Training Oversized Fleece Sweatshirt" ? 3 :
+                   p.ProductName == "Balance V3 Seamless Zip Jacket" ? 4 :
+                   p.ProductName == "Balance V3 Seamless Crop Top" ? 5 :
+                   p.ProductName == "Balance V3 Seamless Shorts" ? 6 :
+                   p.ProductName == "Balance V3 Seamless Leggings" ? 7 :
+                   p.ProductName == "GFX Crew Socks 7PK" ? 8 :
+                   9)
+                .ToListAsync();
+
+
+            return Ok(productsWithImage);
+        }
+
+        private byte[] GetMainImageData(Product product)
+        {
+            var mainImage = product.Images.FirstOrDefault(img => img != null && img.IsMain);
+            return mainImage != null ? mainImage.Data : null;
+        }
+
         [HttpPost("uploadImage")]
-        public async Task<IActionResult> UploadImage(int imageId, int productId, IFormFile imageFile)
+        public async Task<IActionResult> UploadImage(Guid productId, IFormFile imageFile)
         {
             if (imageFile == null || imageFile.Length == 0)
             {
                 return BadRequest("No image provided");
             }
 
-            // Считываем данные из файла в массив байтов
             byte[] imageData;
             using (var memoryStream = new MemoryStream())
             {
@@ -69,8 +132,12 @@ namespace ClothesBack.Controllers
                 imageData = memoryStream.ToArray();
             }
 
-            // Создаем объект Image и сохраняем его в базу данных
-            var image = new Image (imageId, productId, imageData);
+            var image = new Image
+            {
+                ImageId = Guid.NewGuid(),
+                ProductId = productId,
+                Data = imageData
+            };
             _context.Images.Add(image);
             await _context.SaveChangesAsync();
 
@@ -90,27 +157,6 @@ namespace ClothesBack.Controllers
             return await _context.Products.ToListAsync();
         }
 
-        // GET: api/Products/wImages
-        [HttpGet("wImages")]
-        public async Task<ActionResult<IEnumerable<ProductWithImage>>> GetProductsWithImages()
-        {
-            var productsWithImages = await _context.Products
-        .Join(
-            _context.Images,
-            product => product.ProductId,
-            image => image.ProductId,
-            (product, image) => new ProductWithImage
-            {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                Description = product.Description,
-                ImageData = image.Data
-            }
-        )
-        .ToListAsync();
-
-            return productsWithImages;
-        }
 
         // GET: api/Products/5
         /*[HttpGet("{id}")]
@@ -129,7 +175,7 @@ namespace ClothesBack.Controllers
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> PutProduct(Guid id, Product product)
         {
             if (id != product.ProductId)
             {
@@ -162,6 +208,8 @@ namespace ClothesBack.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            product.ProductId = Guid.NewGuid();
+
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
@@ -170,7 +218,7 @@ namespace ClothesBack.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteProduct(Guid id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null)
@@ -184,7 +232,7 @@ namespace ClothesBack.Controllers
             return NoContent();
         }
 
-        private bool ProductExists(int id)
+        private bool ProductExists(Guid id)
         {
             return _context.Products.Any(e => e.ProductId == id);
         }

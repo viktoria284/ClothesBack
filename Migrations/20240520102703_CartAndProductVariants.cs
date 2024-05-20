@@ -9,21 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClothesBack.Migrations
 {
     /// <inheritdoc />
-    public partial class ProductVariantAndCart : Migration
+    public partial class CartAndProductVariants : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "bbf44741-9fd1-497d-8b9a-d66f8f86516f");
-
-            migrationBuilder.DeleteData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "c5811650-873e-48f4-87ce-2125250998d6");
-
             migrationBuilder.CreateTable(
                 name: "ProductVariants",
                 columns: table => new
@@ -47,12 +37,30 @@ namespace ClothesBack.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Images",
+                columns: table => new
+                {
+                    ImageId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProductVariantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Data = table.Column<byte[]>(type: "bytea", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Images", x => x.ImageId);
+                    table.ForeignKey(
+                        name: "FK_Images_ProductVariants_ProductVariantId",
+                        column: x => x.ProductVariantId,
+                        principalTable: "ProductVariants",
+                        principalColumn: "ProductVariantId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CartItems",
                 columns: table => new
                 {
                     CartItemId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
                     ProductVariantId = table.Column<Guid>(type: "uuid", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false)
@@ -72,27 +80,12 @@ namespace ClothesBack.Migrations
                         principalTable: "ProductVariants",
                         principalColumn: "ProductVariantId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CartItems_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "943ddc56-3cbd-4c74-aefe-bc671b190ab5", null, "Admin", "ADMIN" },
-                    { "dc4f5040-5b04-4c63-897b-c5bb6df7eb65", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CartItems_ProductId",
-                table: "CartItems",
-                column: "ProductId");
+                name: "IX_Images_ProductVariantId",
+                table: "Images",
+                column: "ProductVariantId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_ProductVariantId",
@@ -114,29 +107,54 @@ namespace ClothesBack.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+            name: "Images");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Images_ProductVariants_ProductVariantId",
+                table: "Images");
+
+            migrationBuilder.DropTable(
                 name: "CartItems");
 
             migrationBuilder.DropTable(
                 name: "ProductVariants");
 
-            migrationBuilder.DeleteData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "943ddc56-3cbd-4c74-aefe-bc671b190ab5");
+            migrationBuilder.DropIndex(
+                name: "IX_Images_ProductVariantId",
+                table: "Images");
 
-            migrationBuilder.DeleteData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: "dc4f5040-5b04-4c63-897b-c5bb6df7eb65");
+            migrationBuilder.DropColumn(
+                name: "ProductVariantId",
+                table: "Images");
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { "bbf44741-9fd1-497d-8b9a-d66f8f86516f", null, "Admin", "ADMIN" },
-                    { "c5811650-873e-48f4-87ce-2125250998d6", null, "User", "USER" }
-                });
+            migrationBuilder.AlterColumn<int>(
+                name: "ImageId",
+                table: "Images",
+                type: "integer",
+                nullable: false,
+                oldClrType: typeof(Guid),
+                oldType: "uuid")
+                .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            migrationBuilder.AddColumn<int>(
+                name: "ProductId",
+                table: "Images",
+                type: "integer",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Images_ProductId",
+                table: "Images",
+                column: "ProductId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Images_Products_ProductId",
+                table: "Images",
+                column: "ProductId",
+                principalTable: "Products",
+                principalColumn: "ProductId",
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }
