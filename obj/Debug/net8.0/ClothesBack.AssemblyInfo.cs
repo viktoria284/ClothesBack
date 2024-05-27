@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClothesBack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db973d353e0fab37b2c7a80aad85f1803cae5061")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0785ed58fc2afb548a313950cf8e5aa9902b8fd5")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClothesBack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClothesBack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

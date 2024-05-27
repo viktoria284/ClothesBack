@@ -11,6 +11,7 @@ namespace ClothesBack.Dtos
         public string Description { get; set; }
         public string Color { get; set; }
         public decimal Price { get; set; }
+        public byte[] MainImage { get; set; }
         public List<byte[]> Images { get; set; }
         public List<ProductVariantInfo> Variants { get; set; }
     }

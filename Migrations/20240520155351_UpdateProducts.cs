@@ -34,6 +34,7 @@ namespace ClothesBack.Migrations
                    Description = table.Column<string>(type: "text", nullable: false),
                    Color = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                   Image = table.Column<byte[]>(type: "bytea", nullable: true)
                },
                constraints: table =>
                {

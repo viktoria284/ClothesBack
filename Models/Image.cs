@@ -14,7 +14,5 @@ namespace ClothesBack.Models
         public Product Product { get; set; }
 
         public byte[] Data { get; set; }
-
-        public bool IsMain { get; set; }
     }
 }

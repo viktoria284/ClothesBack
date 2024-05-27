@@ -8,25 +8,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ClothesBack.Migrations
 {
     /// <inheritdoc />
-    public partial class AddIsMainToImage : Migration
+    public partial class UpdateProductImageColumn : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "IsMain",
-                table: "Images",
-                type: "boolean",
-                nullable: false,
-                defaultValue: false);
+            migrationBuilder.DropColumn(
+            name: "Image",
+            table: "Products");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "IsMain",
-                table: "Images");
+            migrationBuilder.AddColumn<byte[]>(
+                name: "Image",
+                table: "Products",
+                type: "bytea",
+                nullable: true);
         }
     }
 }

@@ -21,20 +21,23 @@ namespace ClothesBack.Controllers
             _context = context;
         }
 
-        // GET: api/Cart/{userId}
+        // GET: api/cart/{userId}
         [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<CartItem>>> GetCartItems(string userId)
+        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetCartItems(string userId)
         {
             var cartItems = await _context.CartItems
                 .Where(c => c.UserId == userId)
                 .Include(c => c.ProductVariant)
+                    .ThenInclude(pv => pv.Product)
                 .Select(c => new CartItemDto
                 {
                     CartItemId = c.CartItemId,
                     ProductVariantId = c.ProductVariantId,
+                    ProductName = c.ProductVariant.Product.ProductName,
+                    Image = c.ProductVariant.Product.Image,
                     Size = c.ProductVariant.Size,
                     Quantity = c.Quantity,
-                    Price = c.Price
+                    Price = c.ProductVariant.Product.Price
                 })
                 .ToListAsync();
 
@@ -46,23 +49,20 @@ namespace ClothesBack.Controllers
             return Ok(cartItems);
         }
 
-        /*
-        // GET: api/Cart/5
-        [HttpGet("{cartItemId}")]
-        public async Task<ActionResult<CartItem>> GetCartItem(int id)
+        // GET: api/cart/productVariant/{productVariantId}
+        [HttpGet("productVariant/{productVariantId}")]
+        public async Task<IActionResult> GetProductVariant(Guid productVariantId)
         {
-            var cartItem = await _context.CartItems.FindAsync(id);
-
-            if (cartItem == null)
+            var productVariant = await _context.ProductVariants.FindAsync(productVariantId);
+            if (productVariant == null)
             {
-                return NotFound();
+                return NotFound("Product variant not found");
             }
 
-            return cartItem;
+            return Ok(new { stockQuantity = productVariant.StockQuantity });
         }
-        */
 
-        // PUT: api/Cart/5
+        // PUT: api/cart/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{cartItemId}")]
         public async Task<IActionResult> UpdateCartItem(Guid cartItemId, CartItem cartItem)
@@ -93,22 +93,91 @@ namespace ClothesBack.Controllers
             return NoContent();
         }
 
-        // POST: api/Cart
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<CartItem>> PostCartItem(CartItem cartItem)
+        /*[HttpPut("quantity/{cartItemId}")]
+        public async Task<IActionResult> UpdateCartItemQuantity(Guid cartItemId, [FromBody] int quantity)
         {
-            cartItem.CartItemId = Guid.NewGuid();
+            var cartItem = await _context.CartItems.FindAsync(cartItemId);
+            if (cartItem == null)
+            {
+                return NotFound("Cart item not found");
+            }
 
-            // Add validation logic here
+            var productVariant = await _context.ProductVariants.FindAsync(cartItem.ProductVariantId);
+            if (productVariant == null)
+            {
+                return NotFound("Product variant not found");
+            }
 
-            _context.CartItems.Add(cartItem);
+            if (quantity < 1)
+            {
+                return BadRequest("Quantity must be at least 1");
+            }
+
+            if (productVariant.StockQuantity < quantity)
+            {
+                return BadRequest("Not enough stock available");
+            }
+
+            // Update stock quantity only if it is an increase in quantity
+            if (quantity > cartItem.Quantity)
+            {
+                int difference = quantity - cartItem.Quantity;
+                productVariant.StockQuantity -= difference;
+            }
+            else if (quantity < cartItem.Quantity)
+            {
+                int difference = cartItem.Quantity - quantity;
+                productVariant.StockQuantity += difference;
+            }
+
+            cartItem.Quantity = quantity;
+
+            _context.ProductVariants.Update(productVariant);
+            _context.CartItems.Update(cartItem);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetCartItems), new { userId = cartItem.UserId }, cartItem);
+            return Ok();
+        }*/
+
+        // POST: api/cart/toCart
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost("toCart")]
+        public async Task<ActionResult<CartItem>> PostCartItem(AddToCartDto addToCartDto)
+        {
+            if (addToCartDto == null || addToCartDto.Quantity <= 0 || string.IsNullOrEmpty(addToCartDto.UserId))
+            {
+                return BadRequest(new { message = "Invalid cart item data." });
+            }
+
+            var productVariant = await _context.ProductVariants.FindAsync(addToCartDto.ProductVariantId);
+            if (productVariant == null)
+            {
+                return NotFound(new { message = "Product variant not found." });
+            }
+
+            if (productVariant.StockQuantity < addToCartDto.Quantity)
+            {
+                return BadRequest(new { message = "Not enough stock available." });
+            }
+
+            var cartItem = new CartItem
+            {
+                CartItemId = Guid.NewGuid(),
+                UserId = addToCartDto.UserId,
+                ProductVariantId = addToCartDto.ProductVariantId,
+                Quantity = addToCartDto.Quantity
+            };
+
+            //productVariant.StockQuantity -= addToCartDto.Quantity;
+
+            _context.CartItems.Add(cartItem);
+            //_context.ProductVariants.Update(productVariant);
+            await _context.SaveChangesAsync();
+
+            return Ok(cartItem);
         }
 
-        // DELETE: api/Cart/5
+        // DELETE: api/cart/5
         [HttpDelete("{cartItemId}")]
         public async Task<IActionResult> DeleteCartItem(Guid cartItemId)
         {
@@ -118,7 +187,17 @@ namespace ClothesBack.Controllers
                 return NotFound(new { message = "Cart item not found." });
             }
 
+            var productVariant = await _context.ProductVariants.FindAsync(cartItem.ProductVariantId);
+            if (productVariant == null)
+            {
+                return NotFound(new { message = "Product variant not found." });
+            }
+
+            //productVariant.StockQuantity += cartItem.Quantity;
+
             _context.CartItems.Remove(cartItem);
+
+            //_context.ProductVariants.Update(productVariant);
             await _context.SaveChangesAsync();
 
             return Ok(new { message = "Cart item successfully deleted." });

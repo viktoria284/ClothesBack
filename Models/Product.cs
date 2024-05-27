@@ -4,7 +4,7 @@ namespace ClothesBack.Models
 {
     public class Product
     {
-        public Product(Guid productId, string productName, string category, string description, string color, decimal price)
+        /*public Product(Guid productId, string productName, string category, string description, string color, decimal price)
         {
             ProductId = productId;
             ProductName = productName;
@@ -14,7 +14,7 @@ namespace ClothesBack.Models
             Price = price;
             ProductVariants = new List<ProductVariant>();
             Images = new List<Image>();
-        }
+        }*/
 
         [Key]
         public Guid ProductId { get; set; }
@@ -37,6 +37,7 @@ namespace ClothesBack.Models
         [Required]
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
+        public byte[] Image { get; set; }
         public ICollection<ProductVariant> ProductVariants { get; set; }
         public ICollection<Image> Images { get; set; }
     }

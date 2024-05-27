@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ClothesBack.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240520172455_AddIsMainToImage")]
-    partial class AddIsMainToImage
+    [Migration("20240526111106_UpdateProductImageColumn")]
+    partial class UpdateProductImageColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,9 +95,6 @@ namespace ClothesBack.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<Guid>("ProductVariantId")
                         .HasColumnType("uuid");
 
@@ -126,9 +123,6 @@ namespace ClothesBack.Migrations
                     b.Property<byte[]>("Data")
                         .IsRequired()
                         .HasColumnType("bytea");
-
-                    b.Property<bool>("IsMain")
-                        .HasColumnType("boolean");
 
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
@@ -160,6 +154,10 @@ namespace ClothesBack.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
@@ -171,80 +169,6 @@ namespace ClothesBack.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            ProductId = new Guid("7a428abe-ba5f-41e1-977b-f393f7fbb972"),
-                            Category = "T-Shirts",
-                            Color = "Black",
-                            Description = "Premium heavyweight fabric for comfort that hits different. Physical Education graphic to chest",
-                            Price = 30.00m,
-                            ProductName = "Phys Ed Graphic T-Shirt"
-                        },
-                        new
-                        {
-                            ProductId = new Guid("46583626-8f65-4971-b38e-335810ef1b1b"),
-                            Category = "Hoodies",
-                            Color = "Black",
-                            Description = "From rest day relaxing to brunch with the girls, elevate your off-duty vibe in the Phys Ed collection.",
-                            Price = 82.00m,
-                            ProductName = "Phys Ed Hoodie"
-                        },
-                        new
-                        {
-                            ProductId = new Guid("7db24951-6a5c-41a0-b092-a50fdf5ecaab"),
-                            Category = "Sweatshirts",
-                            Color = "Black",
-                            Description = "Soft, brushed back fabric inside for warmth and comfort. Ribbed hem and cuffs for a clean fit. Oversized fit",
-                            Price = 50.00m,
-                            ProductName = "Training Oversized Fleece Sweatshirt"
-                        },
-                        new
-                        {
-                            ProductId = new Guid("7adcd6fd-d493-4bac-af00-3ab2da8c461e"),
-                            Category = "Jackets",
-                            Color = "Black",
-                            Description = "Crafted with enhanced softness and stretch for premium comfort, it offers a new luxurious buttery handfeel.",
-                            Price = 45.00m,
-                            ProductName = "Balance V3 Seamless Zip Jacket"
-                        },
-                        new
-                        {
-                            ProductId = new Guid("e4f94420-b902-456e-b5d4-081c8b1df381"),
-                            Category = "Tops",
-                            Color = "Black",
-                            Description = "Re-designed with enhanced softness for a luxurious handfeel and new improved stretch for better comfort, it ensures optimal performance.",
-                            Price = 30.00m,
-                            ProductName = "Balance V3 Seamless Crop Top"
-                        },
-                        new
-                        {
-                            ProductId = new Guid("41da3058-684b-4db0-b864-acc036b8deb3"),
-                            Category = "Shorts",
-                            Color = "Black",
-                            Description = "Dominate your workout with Balance V3 Seamless Shorts. Crafted with improved softness and stretch, they offer a premium buttery handfeel and a comfortable compressive fit.",
-                            Price = 35.00m,
-                            ProductName = "Balance V3 Seamless Shorts"
-                        },
-                        new
-                        {
-                            ProductId = new Guid("dbc41831-29d1-42ac-b762-6fef2e636707"),
-                            Category = "Leggings",
-                            Color = "Black",
-                            Description = "With an increased fabric weight, these leggings ensure a squat-proof finish, empowering you during your workouts. The refined waistband depth provides a true mid-high waist fit, offering essential support.",
-                            Price = 48.00m,
-                            ProductName = "Balance V3 Seamless Leggings"
-                        },
-                        new
-                        {
-                            ProductId = new Guid("52fb0083-a547-4259-ba6b-3bcd7108f4b6"),
-                            Category = "Socks",
-                            Color = "Black",
-                            Description = "Lifters don't live by Mondays and Tuesdays. We live by Chest Days and Leg Days. Back Days and Rest Days. And these socks know what's up",
-                            Price = 40.00m,
-                            ProductName = "GFX Crew Socks 7PK"
-                        });
                 });
 
             modelBuilder.Entity("ClothesBack.Models.ProductVariant", b =>

@@ -33,32 +33,6 @@
   },
   {
     "ContainingType": "ClothesBack.Controllers.CartController",
-    "Method": "PostCartItem",
-    "RelativePath": "api/cart",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "cartItem",
-        "Type": "ClothesBack.Models.CartItem",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "ClothesBack.Models.CartItem",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "ClothesBack.Controllers.CartController",
     "Method": "UpdateCartItem",
     "RelativePath": "api/cart/{cartItemId}",
     "HttpMethod": "PUT",
@@ -110,7 +84,49 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[ClothesBack.Models.CartItem, ClothesBack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ClothesBack.Dtos.CartItemDto, ClothesBack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClothesBack.Controllers.CartController",
+    "Method": "GetProductVariant",
+    "RelativePath": "api/cart/productVariant/{productVariantId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productVariantId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClothesBack.Controllers.CartController",
+    "Method": "PostCartItem",
+    "RelativePath": "api/cart/toCart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addToCartDto",
+        "Type": "ClothesBack.Dtos.AddToCartDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClothesBack.Models.CartItem",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -149,9 +165,34 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "product",
-        "Type": "ClothesBack.Models.Product",
-        "IsRequired": true
+        "Name": "ProductName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Category",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Description",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Color",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Price",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "ImageFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
@@ -231,21 +272,16 @@
   },
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
-    "Method": "UploadImage",
-    "RelativePath": "api/products/uploadImage",
+    "Method": "AddProductVariants",
+    "RelativePath": "api/products/addVariant",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "productId",
-        "Type": "System.Guid",
-        "IsRequired": false
-      },
-      {
-        "Name": "imageFile",
-        "Type": "Microsoft.AspNetCore.Http.IFormFile",
-        "IsRequired": false
+        "Name": "productVariantsDto",
+        "Type": "ClothesBack.Dtos.VariantsDto",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -253,7 +289,7 @@
   {
     "ContainingType": "ClothesBack.Controllers.ProductsController",
     "Method": "GetProductsWithImage",
-    "RelativePath": "api/products/wImage",
+    "RelativePath": "api/products/forCard",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -269,5 +305,31 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ClothesBack.Controllers.ProductsController",
+    "Method": "UploadImage",
+    "RelativePath": "api/products/uploadImage",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "isMain",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "imageFile",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]
